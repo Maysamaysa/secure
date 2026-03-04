@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    tools {
+        nodejs 'NodeJS'   // ← must match the Name you set above
+    }
 
     stages {
 
