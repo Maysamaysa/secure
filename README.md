@@ -117,6 +117,26 @@ Logout → `sso_token` deleted from server store → cookie cleared → both app
 
 ---
 
+## Monitoring & Metrics
+
+The backend exposes Prometheus-compatible metrics at `GET /metrics` (via
+`prom-client` and `express-prom-bundle`).  Default process/node metrics are
+collected automatically.
+
+You can scrape this endpoint from Prometheus or any other collector:
+
+```yaml
+# prometheus.yml
+scrape_configs:
+  - job_name: 'authvault-backend'
+    static_configs:
+      - targets: ['localhost:3001']
+```
+
+Metrics include HTTP request counts, durations, status codes, plus node process
+metrics (CPU, memory, GC, etc.).
+
+
 ## Environment Variables
 
 ```bash

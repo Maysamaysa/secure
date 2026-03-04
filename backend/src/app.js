@@ -6,6 +6,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
+import promBundle from 'express-prom-bundle';
+import client from 'prom-client';
 import { config } from './config/index.js';
 
 import authRoutes from './routes/auth.routes.js';
@@ -14,6 +16,22 @@ import managerRoutes from './routes/manager.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 
 const app = express();
+
+// ─── Prometheus Metrics ───────────────────────────────────
+// enable default collection including process, GC, and nodejs metrics
+client.collectDefaultMetrics({ timeout: 5000 });
+
+// middleware that automatically instruments request metrics and exposes /metrics
+const metricsMiddleware = promBundle({
+    collectDefaultMetrics: true, // Collect default Node.js process metrics
+    includeMethod: true,
+    includePath: true,
+    includeStatusCode: true,
+    // you can normalize or ignore paths if needed
+    // normalizePath: [/^\/api\/[^\/]+\/?/],
+    metricsPath: '/metrics',
+});
+app.use(metricsMiddleware);
 
 // ─── Security Headers ──────────────────────────────────────
 // helmet sets secure HTTP headers (X-Frame-Options, CSP, etc.)
