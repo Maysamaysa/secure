@@ -24,6 +24,12 @@ npm install
 npm run dev              # Starts on http://localhost:3001
 ```
 
+Run the minimal automated checks:
+
+```bash
+npm test               # basic health/metrics smoke tests (uses jest + supertest)
+```
+
 ### 2. Frontend
 
 ```bash
