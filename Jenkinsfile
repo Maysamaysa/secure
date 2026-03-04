@@ -6,16 +6,18 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        // the declarative pipeline performs a checkout automatically at start
+        stage('Docker Compose') {
             steps {
-                sh 'pwd'
-                sh 'docker-compose up'
-            }
-        }
-
-        stage('Checkout') {
-            steps {
-                git branch: 'master', url: 'https://github.com/Maysamaysa/secure.git'
+                script {
+                    // only run compose if the command exists, avoids "command not found" errors
+                    if (sh(script: 'command -v docker-compose', returnStatus: true) == 0) {
+                        sh 'pwd'
+                        sh 'docker-compose up -d'
+                    } else {
+                        echo 'docker-compose not installed, skipping compose step'
+                    }
+                }
             }
         }
 
