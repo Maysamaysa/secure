@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('Build') {
+            script {
+                sh 'docker-compose up'
+            }
+        }
 
         stage('Checkout') {
             steps {
@@ -17,7 +22,6 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'npm install'
-                    sh 'docker compose up'
                     sh 'npm run build'
                 }
             }
