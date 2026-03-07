@@ -51,6 +51,9 @@ jobs:
         run: npm run dev
         working-directory: backend
 
+      - name: Stop backend
+        run: pkill -f "node --watch src/server.js"
+
 
   frontend:
     name: Frontend Build
