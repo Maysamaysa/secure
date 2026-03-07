@@ -8,7 +8,7 @@
 
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = 'http://localhost:3000';
 
 // The shared Axios instance used throughout the app
 export const api = axios.create({

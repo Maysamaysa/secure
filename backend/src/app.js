@@ -80,7 +80,10 @@ app.use('/api/manager', managerRoutes);
 app.use('/api/admin', adminRoutes);
 
 // ─── Health Check ──────────────────────────────────────────
-app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
+// expose under /api prefix like the rest of the routes
+app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
+// backward‑compatible shortcut for tooling or quick checks
+app.get('/health', (req, res) => res.redirect('/api/health'));
 
 // ─── 404 Handler ───────────────────────────────────────────
 app.use((req, res) => {

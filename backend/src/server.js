@@ -9,15 +9,11 @@ async function start() {
     // Initialize PostgreSQL schemas and seed if empty
     await initDb();
 
-    app.listen(config.port, () => {
+    app.listen(config.port, "0.0.0.0", () => {
         console.log(`\n🚀 JWT Auth Server running at http://localhost:${config.port}`);
         console.log(`   Environment : ${config.nodeEnv}`);
         console.log(`   Google OAuth: ${config.google.isConfigured ? '✅ Configured' : '⚠️  Not configured (disabled)'}`);
         console.log(`   Frontend URL: ${config.frontendUrl}`);
-        console.log(`\n📧 Test Accounts:`);
-        console.log(`   employee@demo.com / pass123  (role: employee)`);
-        console.log(`   manager@demo.com  / pass123  (role: manager)`);
-        console.log(`   admin@demo.com    / pass123  (role: admin)\n`);
     });
 }
 

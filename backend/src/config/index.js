@@ -15,7 +15,7 @@ function requireEnv(key, fallback) {
 }
 
 export const config = {
-  port: parseInt(requireEnv('PORT', '3001')),
+  port: parseInt(requireEnv('PORT', '3000')),
   nodeEnv: requireEnv('NODE_ENV', 'development'),
   frontendUrl: requireEnv('FRONTEND_URL', 'http://localhost:5173'),
 
