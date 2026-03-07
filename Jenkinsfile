@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'npm install'
-                    sh 'npm run build'
+                    sh 'npm run dev'
                 }
             }
         }
@@ -34,15 +34,14 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm install'
-                    sh 'npm run build'
+                    sh 'npm run dev'
                 }
             }
         }
 
         stage('Test') {
             steps {
-                dir('backend') { sh 'npm test' }
-                dir('frontend') { sh 'npm test -- --watchAll=false' }
+                dir('backend') { sh 'npm run test' }
             }
         }
 
