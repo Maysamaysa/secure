@@ -23,7 +23,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U test"
+          --health-cmd="pg_isready -U admin"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -46,14 +46,12 @@ jobs:
       - name: Run tests
         run: npm test
         working-directory: backend
-      
-      - name: Backend run
-        run: npm run dev
+
+      - name: Start backend
+        run: |
+          npm run start &
+          sleep 5
         working-directory: backend
-
-      - name: Stop backend
-        run: pkill -f "node --watch src/server.js"
-
 
   frontend:
     name: Frontend Build
@@ -78,7 +76,6 @@ jobs:
       - name: Build project
         run: npm run build
         working-directory: frontend
-
 
   docker:
     name: Docker Build Test
