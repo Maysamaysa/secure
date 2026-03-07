@@ -46,6 +46,10 @@ jobs:
       - name: Run tests
         run: npm test
         working-directory: backend
+      
+      - name: Backend run
+        run: npm run dev
+        working-directory: backend
 
 
   frontend:
